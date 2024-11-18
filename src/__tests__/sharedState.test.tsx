@@ -1,9 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import SharedStateTest from './SharedStateTest'
+import { createStatePublisher } from '@/utils/createStatePublisher'
+import { SharedStateTest, SharedStateTestMemoChildren } from '@/components/SharedStateTest'
 
-test('shared state test', async () => {
+test('shared state test with UNSAFE_stable_children', async () => {
   render(<SharedStateTest />)
 
   // global-element
@@ -15,9 +16,9 @@ test('shared state test', async () => {
   const getLangValue = () => screen.getByTestId('lang-value')
   const getThemeRender = () => screen.getByTestId('theme-render')
   const getThemeValue = () => screen.getByTestId('theme-value')
-  const getWrapper = () => screen.getByTestId('wrapper')
-  const getAnotherWrapper = () => screen.getByTestId('another-wrapper')
-  const getNested = () => screen.getByTestId('nested')
+  const getWrapper = () => screen.getByTestId('wrapper-0')
+  const getAnotherWrapper = () => screen.getByTestId('another-wrapper-0')
+  const getNested = () => screen.getByTestId('nested-0')
 
   // init check
   expect(getGlobalElement()).toHaveTextContent('Test External Store (1)')
@@ -75,4 +76,46 @@ test('shared state test', async () => {
   expect(getWrapper()).toHaveTextContent('Wrapper (1)')
   expect(getAnotherWrapper()).toHaveTextContent('Another Wrapper (1)')
   expect(getNested()).toHaveTextContent('Nested (1)')
+})
+
+test('shared state test without UNSAFE_stable_children', async () => {
+  render(<SharedStateTestMemoChildren />)
+
+  const getGlobalElement = () => screen.getByTestId('global-element-string')
+  const getInput = () => screen.getByTestId('input-string')
+  const getWrapper = () => screen.getByTestId('wrapper-1')
+  const getAnotherWrapper = () => screen.getByTestId('another-wrapper-1')
+  const getNested = () => screen.getByTestId('nested-1')
+  const getStringRender = () => screen.getByTestId('string-render')
+  const getStringValue = () => screen.getByTestId('string-value')
+
+  // init check
+  expect(getGlobalElement()).toHaveTextContent('Test External Store String (1)')
+  expect(getInput()).toHaveValue('')
+  expect(getWrapper()).toHaveTextContent('Wrapper (1)')
+  expect(getAnotherWrapper()).toHaveTextContent('Another Wrapper (1)')
+  expect(getNested()).toHaveTextContent('Nested (1)')
+  expect(getStringRender()).toHaveTextContent('String (2)')
+  expect(getStringValue()).toHaveTextContent('')
+
+  // input change
+  await userEvent.type(getInput(), 'Jaskier')
+  expect(getGlobalElement()).toHaveTextContent('Test External Store String (8)')
+  expect(getInput()).toHaveValue('Jaskier')
+  expect(getWrapper()).toHaveTextContent('Wrapper (1)')
+  expect(getAnotherWrapper()).toHaveTextContent('Another Wrapper (1)')
+  expect(getNested()).toHaveTextContent('Nested (1)')
+  expect(getStringRender()).toHaveTextContent('String (9)')
+  expect(getStringValue()).toHaveTextContent('Jaskier')
+})
+
+test('should throw an error when useSharedValue is used outside of Provider', () => {
+  const { useSharedValue } = createStatePublisher({ theme: 'light', language: 'en' })
+
+  const TestComponent = () => {
+    useSharedValue()
+    return null
+  }
+
+  expect(() => render(<TestComponent />)).toThrow('useSharedValue must be used inside a Provider')
 })

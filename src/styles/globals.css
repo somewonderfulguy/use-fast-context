@@ -42,3 +42,11 @@ button {
 hr {
   margin: 30px 0;
 }
+
+.i-to-1 {
+  margin-top: 10px;
+
+  & button {
+    width: 60px;
+  }
+}

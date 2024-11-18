@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import StoreTest from './StoreTest'
+import { createContextStore } from '@/utils/createContextStore'
+import { StoreTest } from '@/components/StoreTest'
 
 test('store test', async () => {
   render(<StoreTest />)
@@ -63,7 +64,7 @@ test('store test', async () => {
   expect(getPrimitiveValue()).toHaveTextContent('')
 
   // reset form
-  await userEvent.click(screen.getByRole('button'))
+  await userEvent.click(screen.getByTestId('reset-btn'))
   expect(getGlobalElement()).toHaveTextContent('Test Store (1)')
   expect(getResetButton()).toHaveTextContent('(1)')
   expect(getFormContainer()).toHaveTextContent('FormContainer (1)')
@@ -91,4 +92,30 @@ test('store test', async () => {
   expect(getPrimitiveContainer()).toHaveTextContent('Primitive (5)')
   expect(getPrimitiveRenderTimes()).toHaveTextContent('(5)')
   expect(getPrimitiveValue()).toHaveTextContent('Ciri')
+  await userEvent.click(screen.getByTestId('i-to-1'))
+  expect(getPrimitiveContainer()).toHaveTextContent('Primitive (6)')
+  expect(getPrimitiveRenderTimes()).toHaveTextContent('(6)')
+  expect(getPrimitiveValue()).toHaveTextContent('C1r1')
+})
+
+test('should throw an error when useStoreDispatch is used outside of Provider', () => {
+  const { useStoreDispatch } = createContextStore({ count: 0 })
+
+  const TestComponent = () => {
+    useStoreDispatch()
+    return null
+  }
+
+  expect(() => render(<TestComponent />)).toThrow('useStoreDispatch must be used inside a Provider')
+})
+
+test('should throw an error when useStoreValue is used outside of Provider', () => {
+  const { useStoreValue } = createContextStore({ count: 0 })
+
+  const TestComponent = () => {
+    useStoreValue()
+    return null
+  }
+
+  expect(() => render(<TestComponent />)).toThrow('useStoreValue must be used inside a Provider')
 })

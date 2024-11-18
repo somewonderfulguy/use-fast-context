@@ -106,7 +106,10 @@ export function createStatePublisher<TSharedState extends object>(initialState: 
   if (displayName) Provider.displayName = displayName
 
   function useSharedValue(): TSharedState
-  function useSharedValue<SelectorOutput>(selector: (sharedState: TSharedState) => SelectorOutput): SelectorOutput
+  function useSharedValue<SelectorOutput>(
+    selector: (sharedState: TSharedState) => SelectorOutput,
+    ssrSelector?: (sharedState: TSharedState) => SelectorOutput
+  ): SelectorOutput
   function useSharedValue<SelectorOutput>(
     selector?: (sharedState: TSharedState) => SelectorOutput,
     ssrSelector?: (sharedState: TSharedState) => SelectorOutput
@@ -114,7 +117,7 @@ export function createStatePublisher<TSharedState extends object>(initialState: 
     const sharedState = useContext(PublisherContext)
 
     if (sharedState === undefined) {
-      throw new Error('useSharedState must be used inside a Provider')
+      throw new Error('useSharedValue must be used inside a Provider')
     }
 
     const getSnapshot = () => {

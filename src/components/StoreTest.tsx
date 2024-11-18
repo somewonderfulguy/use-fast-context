@@ -1,7 +1,7 @@
 'use client'
 
-import { createContextStore } from '../../hooks/createContextStore'
-import { useRenderTimes } from '../../hooks/useRenderTimes'
+import { createContextStore } from '../utils/createContextStore'
+import { useRenderTimes } from '../hooks/useRenderTimes'
 
 type Store = {
   first: string
@@ -36,7 +36,11 @@ const TextInput = ({ field }: { field: 'first' | 'last' }) => {
 }
 
 const Display = ({ field }: { field: 'first' | 'last' }) => {
-  const value = useStoreValue((store) => store[field])
+  const value = useStoreValue(
+    (store) => store[field],
+    // for test, passing ssrSelector
+    (store) => store[field]
+  )
   const renderTimes = useRenderTimes()
   return (
     <div className="value">
@@ -75,7 +79,7 @@ const ResetButton = () => {
   const renderTimes = useRenderTimes()
   return (
     <>
-      <button type="button" onClick={() => setStore(initState)}>
+      <button data-testid="reset-btn" type="button" onClick={() => setStore(initState)}>
         Reset Form
       </button>{' '}
       <span data-testid="reset-button">({renderTimes})</span>
@@ -91,6 +95,15 @@ const InputText = () => {
     <div className="container">
       <h5 data-testid="primitive-container">Primitive ({renderTimes})</h5>
       <input data-testid="primitive-input" value={value} onChange={(e) => setValue(e.target.value)} />
+      <div className="i-to-1">
+        <button
+          data-testid="i-to-1"
+          type="button"
+          onClick={() => setValue((prevValue) => prevValue.replaceAll('i', '1'))}
+        >
+          i to 1
+        </button>
+      </div>
     </div>
   )
 }
@@ -106,7 +119,7 @@ const InputValue = () => {
   )
 }
 
-const StoreTest = () => {
+export const StoreTest = () => {
   const renderTimes = useRenderTimes()
   return (
     <Provider>
@@ -129,5 +142,3 @@ const StoreTest = () => {
     </Provider>
   )
 }
-
-export default StoreTest

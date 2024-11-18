@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsc",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
   },

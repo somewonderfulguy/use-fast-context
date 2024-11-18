@@ -1,5 +1,5 @@
-import SharedStateTest from './components/SharedStateTest'
-import StoreTest from './components/StoreTest'
+import { SharedStateTest, SharedStateTestMemoChildren } from '@/components/SharedStateTest'
+import { StoreTest } from '@/components/StoreTest'
 
 export default function TestUI() {
   return (
@@ -7,6 +7,7 @@ export default function TestUI() {
       <StoreTest />
       <hr />
       <SharedStateTest />
+      <SharedStateTestMemoChildren />
     </>
   )
 }

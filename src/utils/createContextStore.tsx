@@ -104,7 +104,10 @@ export function createContextStore<TStore>(initialState: TStore, displayName?: s
   if (displayName) Provider.displayName = displayName
 
   function useStoreValue(): TStore
-  function useStoreValue<SelectorOutput>(selector: (store: TStore) => SelectorOutput): SelectorOutput
+  function useStoreValue<SelectorOutput>(
+    selector: (store: TStore) => SelectorOutput,
+    ssrSelector?: (store: TStore) => SelectorOutput
+  ): SelectorOutput
   function useStoreValue<SelectorOutput = TStore>(
     selector?: (store: TStore) => SelectorOutput,
     ssrSelector?: (store: TStore) => SelectorOutput
@@ -119,8 +122,6 @@ export function createContextStore<TStore>(initialState: TStore, displayName?: s
       const currentStore = store.get()
       return selector ? selector(currentStore) : currentStore
     }
-
-    console.log('useSyncExternalStore', typeof useSyncExternalStore, useSyncExternalStore)
 
     return useSyncExternalStore(store.subscribe, getSnapshot, ssrSelector ? () => ssrSelector(store.get()) : undefined)
   }
