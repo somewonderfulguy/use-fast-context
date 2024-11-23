@@ -41,8 +41,6 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
     "lint": "next lint",
     "check-types": "tsc",
     "test": "vitest",
