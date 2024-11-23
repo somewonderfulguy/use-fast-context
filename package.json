@@ -1,7 +1,44 @@
 {
   "name": "use-fast-context",
   "version": "1.0.0",
-  "private": true,
+  "description": "Optimized React Context utilities to prevent unnecessary re-renders, offering efficient state management with createContextStore and createStatePublisher.",
+  "keywords": [
+    "react",
+    "react context",
+    "context",
+    "useContext",
+    "createContext",
+    "useSyncExternalStore",
+    "optimized context",
+    "state management",
+    "react hooks",
+    "createContextStore",
+    "createStatePublisher",
+    "state",
+    "store",
+    "compound components",
+    "performance",
+    "fast context",
+    "react context optimization",
+    "react 18",
+    "efficient context",
+    "context re-renders",
+    "use-fast-context"
+  ],
+  "homepage": "https://github.com/somewonderfulguy/use-fast-context",
+  "bugs": {
+    "url": "https://github.com/somewonderfulguy/use-fast-context/issues"
+  },
+  "author": "Dmitriy Yastrebov <somewonderfulguy@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/somewonderfulguy/use-fast-context.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -11,10 +48,9 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
   },
-  "dependencies": {
-    "next": "15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
@@ -29,6 +65,9 @@
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
     "jsdom": "^25.0.1",
+    "next": "15.0.3",
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.2",
     "vitest": "^2.1.5"

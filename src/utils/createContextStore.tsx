@@ -104,18 +104,18 @@ export function createContextStore<TStore>(initialState: TStore, displayName?: s
   if (displayName) Provider.displayName = displayName
 
   function useStoreValue(): TStore
-  function useStoreValue<SelectorOutput>(
-    selector: (store: TStore) => SelectorOutput,
-    ssrSelector?: (store: TStore) => SelectorOutput
-  ): SelectorOutput
-  function useStoreValue<SelectorOutput = TStore>(
-    selector?: (store: TStore) => SelectorOutput,
-    ssrSelector?: (store: TStore) => SelectorOutput
-  ): SelectorOutput | TStore {
+  function useStoreValue<TSelectorOutput>(
+    selector: (store: TStore) => TSelectorOutput,
+    ssrSelector?: (store: TStore) => TSelectorOutput
+  ): TSelectorOutput
+  function useStoreValue<TSelectorOutput = TStore>(
+    selector?: (store: TStore) => TSelectorOutput,
+    ssrSelector?: (store: TStore) => TSelectorOutput
+  ): TSelectorOutput | TStore {
     const store = useContext(StoreValueContext)
 
     if (store === undefined) {
-      throw new Error('useStoreValue must be used inside a Provider')
+      throw new Error(`useStoreValue must be used inside a ${displayName || 'Provider'}`)
     }
 
     const getSnapshot = () => {
@@ -129,7 +129,7 @@ export function createContextStore<TStore>(initialState: TStore, displayName?: s
   const useStoreDispatch = () => {
     const set = useContext(StoreDispatchContext)
     if (set === undefined) {
-      throw new Error('useStoreDispatch must be used inside a Provider')
+      throw new Error(`useStoreDispatch must be used inside a ${displayName || 'Provider'}`)
     }
     return set
   }
