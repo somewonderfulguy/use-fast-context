@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useMemo, useState } from 'react'
+import { type ReactNode, useMemo, useState } from 'react'
 
 import { createStatePublisher } from '../utils/createStatePublisher'
 import { useRenderTimes } from '../hooks/useRenderTimes'

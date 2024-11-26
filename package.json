@@ -41,10 +41,15 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
+    "build": "tsc --project tsconfig.tsup.json",
+    "ci": "pnpm run build && pnpm run check-format",
     "lint": "next lint",
-    "check-types": "tsc",
+    "check-types": "tsc --noEmit --project tsconfig.tsup.json",
+    "check-types:next": "tsc",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
   },
   "peerDependencies": {
     "react": ">=18.0.0",
@@ -54,6 +59,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
+    "@total-typescript/tsconfig": "^1.0.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -64,6 +70,7 @@
     "eslint-config-next": "15.0.3",
     "jsdom": "^25.0.1",
     "next": "15.0.3",
+    "prettier": "^3.4.1",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "typescript": "^5",
