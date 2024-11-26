@@ -12,7 +12,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['lcov', 'text', 'html'],
       include: ['src/**/*'],
-      exclude: ['src/app/layout.tsx', 'src/app/page.tsx']
+      exclude: ['src/app/layout.tsx', 'src/app/page.tsx', 'src/index.ts']
     }
   }
 })

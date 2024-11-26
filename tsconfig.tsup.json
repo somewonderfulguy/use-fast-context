@@ -2,8 +2,8 @@
   "extends": "@total-typescript/tsconfig/tsc/dom/library",
   "compilerOptions": {
     "jsx": "preserve",
-    "outDir": "dist",
-    "rootDir": "src"
+    "module": "preserve",
+    "noEmit": true
   },
-  "include": ["src/utils"]
+  "include": ["src/index.ts"]
 }

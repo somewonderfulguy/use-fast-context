@@ -34,6 +34,14 @@
     "type": "git",
     "url": "git+https://github.com/somewonderfulguy/use-fast-context.git"
   },
+  "main": "dist/index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.cjs"
+    }
+  },
   "files": [
     "dist"
   ],
@@ -41,21 +49,24 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "tsc --project tsconfig.tsup.json",
-    "ci": "pnpm run build && pnpm run check-format",
+    "build": "tsup",
+    "ci": "pnpm check-format && pnpm lint && pnpm test && pnpm build && pnpm check-exports",
     "lint": "next lint",
-    "check-types": "tsc --noEmit --project tsconfig.tsup.json",
+    "check-types": "tsc --project tsconfig.tsup.json",
     "check-types:next": "tsc",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "format": "prettier --write .",
-    "check-format": "prettier --check ."
+    "check-format": "prettier --check .",
+    "check-exports": "attw --pack ."
   },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
@@ -73,6 +84,7 @@
     "prettier": "^3.4.1",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
+    "tsup": "^8.3.5",
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.2",
     "vitest": "^2.1.5"
