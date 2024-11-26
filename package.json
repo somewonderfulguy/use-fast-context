@@ -1,6 +1,6 @@
 {
   "name": "use-fast-context",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Optimized React Context utilities to prevent unnecessary re-renders, offering efficient state management with createContextStore and createStatePublisher.",
   "keywords": [
     "react",
