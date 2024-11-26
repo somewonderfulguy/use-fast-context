@@ -10,6 +10,24 @@ Only components that consume the context value will re-render, and selectors can
 
 This library utilizes `useRef` and `useSyncExternalStore` with selectors for efficient context updates.
 
+- [Installation](#installation)
+- [Usage](#usage)
+- [API](#api)
+  - [`createContextStore`](#createcontextstore)
+    - [Signature](#signature)
+    - [Parameters](#parameters)
+    - [Returns](#returns)
+  - [`createStatePublisher`](#createstatepublisher)
+    - [Signature](#signature-1)
+    - [Parameters](#parameters-1)
+    - [Returns](#returns-1)
+- [Examples](#examples)
+  - [`createContextStore`](#createcontextstore-1)
+  - [`createStatePublisher`](#createstatepublisher-1)
+- [Why use this library?](#why-use-this-library)
+- [Notes](#notes)
+
+
 ## Installation
 
 Prerequisites: This library requires React version 18 or higher because it utilizes the `useSyncExternalStore` hook, which is not available in React 17.
