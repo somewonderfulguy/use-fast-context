@@ -6,5 +6,6 @@ export default defineConfig({
   dts: true,
   outDir: 'dist',
   clean: true,
-  tsconfig: 'tsconfig.tsup.json'
+  tsconfig: 'tsconfig.tsup.json',
+  external: ['react', 'react-dom']
 })
