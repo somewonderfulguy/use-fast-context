@@ -1,7 +1,7 @@
 {
   "extends": "@total-typescript/tsconfig/tsc/dom/library",
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "module": "preserve",
     "noEmit": true
   },
