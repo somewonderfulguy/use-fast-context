@@ -61,7 +61,7 @@
     "check-format": "prettier --check .",
     "check-exports": "attw --pack .",
     "local-release": "changeset version && changeset publish",
-    "prepublishOnly": "pnpm run ci"
+    "prepublish-only": "pnpm run ci"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
